@@ -43,7 +43,6 @@ GEMINI_API_KEY="your_api_key_here"
 
 ```python
 import os
-import json
 from dotenv import load_dotenv
 from ddgem import get_default_ddgem_client
 
