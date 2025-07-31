@@ -45,25 +45,16 @@ GEMINI_API_KEY="your_api_key_here"
 import os
 import json
 from dotenv import load_dotenv
-from ddgem import DDSearch, GeminiClient
+from ddgem import get_default_ddgem_client
 
 def main():
     load_dotenv()
     api_key = os.getenv("GEMINI_API_KEY")
 
-    if not api_key:
-        print("Error: GEMINI_API_KEY not found in .env file.")
-        return
-
-    searcher = DDSearch()
-    fact_checker = GeminiClient(search_client=searcher, api_key=api_key)
+    ddgem = get_default_ddgem_client(api_key=api_key)
     
-    # Ask a question. The method uses 'gemma-3n-e4-it' by default.
     query = "What is a black hole?"
-    answer = fact_checker.get_fact_checked_answer(query)
-    
-    if answer:
-        print(json.dumps(answer, indent=2, ensure_ascii=False))
+    answer = ddgem.get_fact_checked_answer(query)
 
 if __name__ == "__main__":
     main()
